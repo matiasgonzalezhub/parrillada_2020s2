@@ -1,3 +1,136 @@
 import comidas.*
 import comensales.*
 import cocina.*
+
+test "testValoracionHamburguesaCarnePanCasero" {
+
+
+
+var carne = new HamburguesaCarne(tipoPan = panCasero)
+
+assert.equals(80, carne.valoracion())
+
+}
+
+
+test "testValoracionHamburguesaVegana" {
+
+
+
+var vegana = new HamburguesaVegana(tipoPan = panMasaMadre,legumbre = "garbanzos" )
+
+assert.equals(18, vegana.valoracion())
+
+}
+
+
+
+test "testProvoleta" {
+
+
+
+var provo = new Provoleta(peso= 190)
+
+provo.setEspecia(true)
+
+assert.equals(true, provo.esEspecial())
+
+}
+
+
+test "pariila" {
+
+var a = new CorteCarne(nombre= "asado",calidad= 10 , peso = 250)
+
+var e = new CorteCarne(nombre= "entrania",calidad= 7 , peso = 200)
+
+var c = new CorteCarne(nombre= "chorizo",calidad= 8 , peso = 50)
+
+var parilla = new Parrillada()
+parilla.agregarCorte(a)
+parilla.agregarCorte(e)
+parilla.agregarCorte(c)
+
+assert.equals(147, parilla.valoracion())
+
+}
+
+
+test "vegetariano" {
+
+var v= new Vegetariano()
+v.peso(68500)
+
+
+var provo = new Provoleta(peso= 190)
+
+provo.setEspecia(true)
+
+v.comidas(provo)
+
+
+var vegana = new HamburguesaVegana(tipoPan = panMasaMadre,legumbre = "garbanzos" )
+
+
+var vegana2 = new HamburguesaVegana(tipoPan = panMasaMadre,legumbre = "garbanzos" )
+
+v.comidas(vegana)
+v.comidas(vegana2)
+
+
+assert.equals(true, v.satisfecho())
+
+}
+
+
+test "popular" {
+
+var v= new HambrePopular()
+v.peso(85000)
+
+
+var a = new CorteCarne(nombre= "asado",calidad= 10 , peso = 250)
+
+var e = new CorteCarne(nombre= "entrania",calidad= 7 , peso = 200)
+
+var c = new CorteCarne(nombre= "chorizo",calidad= 8 , peso = 50)
+
+var parilla = new Parrillada()
+parilla.agregarCorte(a)
+parilla.agregarCorte(e)
+parilla.agregarCorte(c)
+
+v.comidas(parilla)
+
+assert.equals(false, v.satisfecho())
+
+}
+
+test "fino" {
+
+var v= new PaladarFino()
+
+var carne = new HamburguesaCarne(tipoPan = panMasaMadre)
+
+
+v.comidas(carne)
+
+
+assert.equals(true, v.leAgrada(carne))
+
+}
+
+test "fino2" {
+
+var v= new PaladarFino()
+
+var carne = new HamburguesaCarne(tipoPan = panCasero)
+
+
+v.comidas(carne)
+
+
+assert.equals(false, v.leAgrada(carne))
+
+}
+
